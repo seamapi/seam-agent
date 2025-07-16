@@ -73,11 +73,11 @@ SUMMARY: The customer inquired about integrating Yale x Nest locks with Sesm, bu
 
 CONVERSATION THREAD:
 [6/30/2025] CUSTOMER (Shiven):
-Hi team, 
+Hi team,
 
 We have someone who has a few YaleXNest locks connected to the Nest app.
 
-What’s the best way we can make those locks work with Sesm? 
+What’s the best way we can make those locks work with Sesm?
 
 [6/30/2025] SUPPORT (Jack Finley):
 Hey <@U04QBUVJ9QU|Shiven>, unfortunately the Yale x Nest locks are not supported through our API.
@@ -107,7 +107,7 @@ CONVERSATION THREAD:
 I do not, but most of our customers who I have spoken with that already offer access have some kind of camera in the gym for added security
 
 [6/18/2025] SUPPORT (Sy Bohy):
-<@U018QCTSLS2|Mark Beach> may I schedule a call with you tomorrow or Friday? I want to do a super quick exploration of the features we’d need to build. For example, I’d love a camera at my gym so that I can know if certain machines or racks are currently occupied so that I can come by later 
+<@U018QCTSLS2|Mark Beach> may I schedule a call with you tomorrow or Friday? I want to do a super quick exploration of the features we’d need to build. For example, I’d love a camera at my gym so that I can know if certain machines or racks are currently occupied so that I can come by later
 
 ================================================================================
 
@@ -204,7 +204,7 @@ I would love to say yes, but we don't have many customers using/requesting the i
 <@U0859FR3T0C|Alex Bohatka> It's supported, but likely not something we'd like to recommend to customers to use. See the above discussion
 
 [6/23/2025] CUSTOMER (Alex Bohatka):
-Thanks <@UF6TGBUJC|Eran Galperin>. Given the customer already has this hardware in place, should we still go with this or should I push them to buy new hardware? 
+Thanks <@UF6TGBUJC|Eran Galperin>. Given the customer already has this hardware in place, should we still go with this or should I push them to buy new hardware?
 
 [6/23/2025] CUSTOMER (Eran Galperin):
 We can give them the option to try it and see if it's working, but with the caveat that it might be spotty according to our integration partner
@@ -547,7 +547,7 @@ Could you please investiagte what happen here?
 Do you know if these locks were previously marked as unmanaged?
 
 [7/7/2025] CUSTOMER (Bohdan Rutylo):
-They weren’t 
+They weren’t
 
 [7/7/2025] SUPPORT (Unknown):
 Chris Clark created a new issue SHD-1521 Investigate account lock status discrepancy for user
@@ -1038,10 +1038,10 @@ Hi All - had a few questions on the create/update codes process with the API.
 
 For creating an <https://docs.seam.co/latest/api/access_codes/create|access code> the API gives some details on the properties but looking for some clarity on a few of them.
 • based on the presentation it looks like really all we need to create a code for online is *device_id*, *starts_at*, *ends_at *and thats it?  Everything else would be optional.  Any recommendations of using any other optional properties with our calls?  We basically want the system to create the code and not have to send in a specific code to use.
-• *name *- if we pass a value for this if we have multiple calls with the same name is there any issue? 
+• *name *- if we pass a value for this if we have multiple calls with the same name is there any issue?
 • *sync *- no description on what this means? Sync to what? I'd assume for online locks the codes would always sync so does this represent something else?
 • *is_offline_access_code - *for offline locks like this is the only property we need to set to true, correct (based on presentation)?  If so, what are these for?
-    • *use_offline_access_code* 
+    • *use_offline_access_code*
     • *attempt_for_offline_device *
 
 As far as the result to creating an access code. Looks like we get an action attempt id back and by default it starts as pending.  How long do these requests normally take?  Our processes are typically not asynchronous, some service requests a code and expects one in return.  If we verify the lock is online with get device should this be something we can verify works immediately?
@@ -1055,8 +1055,8 @@ Hey <@U01TH7118BH|Bret Hodge>, glad to hear things have been straight forward so
 • I would recommend not creating many codes all with the same name, if possible. Some locks will have logic that reject the code creation/setting if there is an existing code on the lock with the same name, so it could cause issues.
 • `sync` has been deprecated and is being removed from the docs, so you can ignore it.
 • `use_offline_access_code`* *should be set to true when creating an offline code, this creates a special type of "code" that isn't really a code but an algoPIN.
-• `attempt_for_offline_device`should be set to true if you want Seam to keep trying to set the code on a device that might be temporarily offline. 
-• It should normally only take a second or two to receive a `success` request back when creating an access code if the device is online and responsive. However, actual time can vary depending on network conditions and state of the device. The SDK has a `wait_for_action_attempt` <https://pypi.org/project/seam/|option> that your system could continuously poll up to a point until you get a success response. 
+• `attempt_for_offline_device`should be set to true if you want Seam to keep trying to set the code on a device that might be temporarily offline.
+• It should normally only take a second or two to receive a `success` request back when creating an access code if the device is online and responsive. However, actual time can vary depending on network conditions and state of the device. The SDK has a `wait_for_action_attempt` <https://pypi.org/project/seam/|option> that your system could continuously poll up to a point until you get a success response.
 
 Let me know if you have any follow-up questions here!
 
@@ -1084,7 +1084,7 @@ I did have a few questions about testing the implementation:
 
 Along the lines of online/offline.  Can you verify my logic check.  I didn't see anything that exclusively said if a lock was internet connected (online) vs offline.  So I'm doing:
 • to determine if lock is online I'm checking `properties.online` is true and `can_program_online_access_codes` is true. If the device is offline we abort and try again later.
-• for offline locks i'm checking `can_program_offline_access_codes` is true. 
+• for offline locks i'm checking `can_program_offline_access_codes` is true.
 
 I am setting the access code request property `is_offline_access_code` equal to `can_program_offline_access_codes` when making the request in both instances.
 
@@ -1137,7 +1137,7 @@ Is there no way to force the system to generate the code immediately?  If not, t
 Ah I see - yes if there's a online lock that in its current state is offline, `can_program_online_access_codes` should still be `true`. So if that flag is `true` and the `online` property is false, its an _online_ lock that just happens to be offline. If `can_program_offline_access_codes` = true, then that would be a lock that can program offline codes. `online_access_codes_enabled` is an obsolete property and should be ignored.
 
 &gt; As far as backup codes goes, I guess I'm still a little confused on how that works.  If back up codes only work for the specified time, it would mean they would have to be "programmed" on the lock as well after our request, correct?  If so, why would the original code generated not work whereas a backup code would?
-&gt; 
+&gt;
 &gt; In any event, we don't have a current flow for flagging a code as invalid and having a "backup" code for a stay.  If a code doesn't work the support specialist as a few options:
 • generate a new one and see if it works.  In this case if the lock is offline it would fail and they would fall back to another option.
 • give out a code that is known to work (not necessarily related to the stay) and then remove the code after the stay.
@@ -1145,7 +1145,7 @@ Ah I see - yes if there's a online lock that in its current state is offline, `c
 I understand your point - I followed up with our dev team and they said that if the backup flag is enabled on the code creation request, Seam will immedaitely program a backup code on the lock when the create command issued, even if the reservation is days out and the code won't be set until then. So in that scenario where the code fails to set at the `starts_at` time, you should have a backup code already on there, "hidden" and ready to be pulled from the pool. When you pull it, Seam will match the code's time windows to the original code, and it will be automatically deleted at the `ends_at`. The backup code would have have its own `access_code_id`. Ultimately, up to you if you'll want to implement this!
 
 &gt; I'm testing my offline lock flow and it appears that you do not send the code back with the request, is that correct?  I was getting null back for the code and based on <https://docs.seam.co/latest/capability-guides/smart-locks/access-codes/offline-access-codes#brand-specific-offline-access-code-restrictions|the offline access codes page>, it looks like we do not get a code generated until close to usage time, is that accurate?
-&gt; 
+&gt;
 &gt; Is there no way to force the system to generate the code immediately?  If not, the documentation just says when the starts_at time approaches it will create it.  What time frame are we talking about? How soon will a code be generated before the starts_at time?
 I would expect the code to come back almost immediately :thinking_face:, I did some testing on our offline lock and I was able to see the code a second or two after creating it. In my image below you'll see I am seeing the `407105053` code even though the reservation is days out.
 
@@ -1261,7 +1261,7 @@ Yes, unfortunately there is no way to hide this. Although you did give me an ide
 
 We do mark things as deprecated, however I think this is missing for top level response keys. Will look into this.
 
-&gt; I will note that I'm looking the latest api docs though (even the action attempt apis are linked on the side bar nav in your link) and there is no note of them being deprecated. 
+&gt; I will note that I'm looking the latest api docs though (even the action attempt apis are linked on the side bar nav in your link) and there is no note of them being deprecated.
 
 Action attempts are NOT deprecated :slightly_smiling_face: Just the ones returned by a few endpoint that _should_ all be removed from the docs at this point.
 
@@ -1270,7 +1270,7 @@ Action attempts are NOT deprecated :slightly_smiling_face: Just the ones returne
 Thanks! This is a very recent bug you just found with our new generated docs page. Will get this fixed ASAP!
 
 [5/28/2025] SUPPORT (Evan):
-&gt; The documentation you pointed me to is using the npm package (I'm looking at the JS implementation) and it's response object is different than the API response object for the API call directly. 
+&gt; The documentation you pointed me to is using the npm package (I'm looking at the JS implementation) and it's response object is different than the API response object for the API call directly.
 
 The SDK and API response shapes should be identical. All API endpoints return a single primary resource (or `void`). The SDKs always return the resource directly. For example,
 
@@ -1328,7 +1328,7 @@ In addition, looking at your test of an <https://vacasa.slack.com/archives/C08KV
 
 On the <https://docs.seam.co/latest/capability-guides/smart-locks/access-codes/offline-access-codes#id-2.-verify-successful-time-bound-code-registration|documentation> (2. Verify Successful Time-bound Code Registration). Each one of the numbered items confuses me a bit based on my experiences with offline locks:
 • `Unset` - this line ends with `not yet available for use on the lock due to a configured future activation time`.  Offline codes aren't configured on the lock.  So why would an offline lock's access code ever be in an `unset` state?
-• `Setting` - states `As the scheduled starts_at time approaches, Seam initiates the process of readying the code`. I think this is where my concern is.  It would appear to me that seam doesn't make a request for a code immediately but does it at an unknown future time prior to arrival. 
+• `Setting` - states `As the scheduled starts_at time approaches, Seam initiates the process of readying the code`. I think this is where my concern is.  It would appear to me that seam doesn't make a request for a code immediately but does it at an unknown future time prior to arrival.
 • `Set` - states `Upon successful programming`- similar to `unset` there is no programming on the lock.
 
 My initial expectation with offline codes would have been a code immediately returned with a stage of `Set` considering the code is good and no programming on the lock is required. However, based on the documentation and my API testing I'm guessing that offline codes aren't immediately generated upon API request and rather seam generates the codes asynchronously on some interval/queue/etc and due to this we won't ever get an offline code with our API call in a timely fashion.  Does that sound accurate?
@@ -1506,15 +1506,15 @@ CONVERSATION THREAD:
 
 <@U01H7DV69PV|Parth Baraiya> <@U02C0CDPFDG|Nikunj Vasani>
 
-• For Android, after unlock, the app was stuck on the success screen and <@U05KH0LDLJH|Max Stoumen> couldn’t navigate out of it. <@U01H7DV69PV|Parth Baraiya> Do you know why this is? 
-    • Max used this version "<https://pocket-deploy.simform.solutions/download?fileId=6abe994c-dd73-466c-a8f4-8b71e4051fc3>" and I'm not sure if it was fixed in the latest version. 
+• For Android, after unlock, the app was stuck on the success screen and <@U05KH0LDLJH|Max Stoumen> couldn’t navigate out of it. <@U01H7DV69PV|Parth Baraiya> Do you know why this is?
+    • Max used this version "<https://pocket-deploy.simform.solutions/download?fileId=6abe994c-dd73-466c-a8f4-8b71e4051fc3>" and I'm not sure if it was fixed in the latest version.
 • On ios, holding the phone to the door for some reason triggers opening apple pay, you have to close out of it to continue unlocking. <@U05KH0LDLJH|Max Stoumen> is this an issue that Flamingo has to fix or an issue tha Seam has to fix or an issue that Latch has to fix?
-• Cayley said Max mentioned being able to pass data to AVB/Latch regarding success/failure logs. <@U05KH0LDLJH|Max Stoumen> Is this possible? 
+• Cayley said Max mentioned being able to pass data to AVB/Latch regarding success/failure logs. <@U05KH0LDLJH|Max Stoumen> Is this possible?
 • To successfully unlock the door, your phone has to be just about touching the lock. <@U05KH0LDLJH|Max Stoumen> Is this an Latch issue? Or seam or Flamingo issue&gt;
 
 
 [6/26/2025] SUPPORT (Matt):
-<@U01AN9J782C|Jude Chiy> the Apple Pay issue is something that can only be addressed in your app. You’ll need to request a special ‘com.apple.developer.passkit.pass-presentation-suppression’ entitlement from Apple for your app. I’ll write up the details and share them here later today. 
+<@U01AN9J782C|Jude Chiy> the Apple Pay issue is something that can only be addressed in your app. You’ll need to request a special ‘com.apple.developer.passkit.pass-presentation-suppression’ entitlement from Apple for your app. I’ll write up the details and share them here later today.
 
 [6/26/2025] CUSTOMER (Jude Chiy):
 <@U01H7DV69PV|Parth Baraiya> I thought we already had suppression permission from Apple? This was done when we integrated Miwa.
@@ -1526,7 +1526,7 @@ Yes <@URM5HV7FC>, We had that for only one app. I think we need to request it ag
 <@U01H7DV69PV|Parth Baraiya> Can we just layer it into app submission process since we have apps that have access control and some that don't and for the ones that don't, we can add them at different moments?
 
 [6/26/2025] SUPPORT (Max Stoumen):
-&gt; <@U01AN9J782C|Jude Chiy>  
+&gt; <@U01AN9J782C|Jude Chiy>
 
 &gt; Cayley said Max mentioned being able to pass data to AVB/Latch regarding success/failure logs. <@U05KH0LDLJH|Max Stoumen> Is this possible?
 
@@ -1609,7 +1609,7 @@ cc: <@U02C0CDPFDG|Nikunj Vasani>
 cc: <@U02C0CDPFDG|Nikunj Vasani> <@U01AN9J782C|Jude Chiy>
 
 [6/30/2025] SUPPORT (Max Stoumen):
-<@U01H7DV69PV|Parth Baraiya> this is fixed! 
+<@U01H7DV69PV|Parth Baraiya> this is fixed!
 
 [6/30/2025] CUSTOMER (Parth Baraiya):
 Thanks! <@U05KH0LDLJH|Max Stoumen>
@@ -1656,7 +1656,7 @@ Hi <!here>, we just saw that Frank left. Who replaced him? <@U076PSRFY4V|Jack Fi
 <@U042XSD8UGK|Almog Avivi> Yes, we have not backfilled Frank's role yet - in the interim, Dawn (our CPO) and Chris (Lead Engineer) will be handling product duties on the smart home side. Let me know if you have any additional questions!
 
 [6/26/2025] CUSTOMER (Almog Avivi):
-<@UBNKULUJZ|Bohdan Rutylo> 
+<@UBNKULUJZ|Bohdan Rutylo>
 
 [6/26/2025] SUPPORT (Sy Bohy):
 Yale assure 2: yes
@@ -2177,7 +2177,7 @@ Hey <@U01UKQFA8LA|Kris>, wanted to make sure you saw our changelog post about th
 <@U01UKQFA8LA|Kris> we pushed a fix to make sure this doesn't happen again. It should no longer be a concern for you guys, sorry!
 
 [7/2/2025] CUSTOMER (Kris):
-Thank you :pray: 
+Thank you :pray:
 
 ================================================================================
 
@@ -2879,7 +2879,7 @@ Hi <@U042XSD8UGK|Almog Avivi> I have an update from Renters- they have a project
 • Platform - <https://www.dormakaba.com/fr-fr/offre/produits/serrures-de-gestion-hotelieres-et-bornes-transactionnelles/logiciels-et-systemes-de-gestion-des-acces/webkeys--ka_500120|Webkeys> (<https://go.dormakaba.com/en/lyazon|Lyazon>)
 • REST-API - <https://www.dormakaba-webkeys.com/APIRestWebkeys/|Documentation API - dormakaba-Connect>
 • lock- Saffire Evo WiFi lock (datasheet attached) with a mortise lock
-• preferred access - 6-digit PIN code (optionally RFID, digital key in the phone) 
+• preferred access - 6-digit PIN code (optionally RFID, digital key in the phone)
 
 + I have another client using Webkeys, but I don't have the model yet. Could you check with Seam if we could integrate with those systems?
 
@@ -2953,7 +2953,7 @@ CONVERSATION THREAD:
 
 We are using the endpoint POST <https://connect.getseam.com/client_sessions/get_or_create|https://connect.getseam.com/client_sessions/get_or_create> to generate a CST, passing the user_identity_id in the payload. However, it seems to create a new CST token every time we call it. Is this the expected behavior? We noticed there's also a separate endpoint specifically for creating a CST.
 
-Cc: <@U076PSRFY4V|Jack Finley> 
+Cc: <@U076PSRFY4V|Jack Finley>
 
 [6/26/2025] SUPPORT (Max Stoumen):
 <@U04FDN7D34K|Harley Lovitos> that may be a bug, I can look into this and get back to you
@@ -3025,7 +3025,7 @@ SUMMARY: The customer requested to schedule a meeting for the week of the 7th af
 
 CONVERSATION THREAD:
 [6/26/2025] CUSTOMER (danielle):
-Hi Jack, so sorry it’s been a crazy week. I am actually OOO next week but can we aim for the week of the 7th? Anytime after 1pmEST that week will work for me 
+Hi Jack, so sorry it’s been a crazy week. I am actually OOO next week but can we aim for the week of the 7th? Anytime after 1pmEST that week will work for me
 
 [6/26/2025] SUPPORT (Jack Finley):
 <@U11UTJ61J|danielle> No worries, that sounds good - just sent time for 130pm EST on the 8th.  Talk soon!
@@ -3052,7 +3052,7 @@ This is a fairly large customer for Enso Connect and our team has been strugglin
 
 Can you help us solve this asap?
 
-<@U012TSFGM5M|Sy Bohy> <@ULL44U2SV|Francois Gouelo> <@ULS0CEQ6Q|Peter> <@U04H4ECKAAD|Bilal Khan> 
+<@U012TSFGM5M|Sy Bohy> <@ULL44U2SV|Francois Gouelo> <@ULS0CEQ6Q|Peter> <@U04H4ECKAAD|Bilal Khan>
 
 [6/20/2025] CUSTOMER (AJ):
 CC <@U08B256BFA7|Felipe Alvarez>
@@ -3069,7 +3069,7 @@ At the moment not that we're aware of
 Nope this is the main thing we need to look at right now; the customer is freaking out and the issue has been on for quite some time….! This is a fairly big client for us
 
 [6/20/2025] CUSTOMER (Francois Gouelo):
-Should we be not selling Akiles here <@U05UGTTRJ8Y|Pawel Stepniak> 
+Should we be not selling Akiles here <@U05UGTTRJ8Y|Pawel Stepniak>
 
 [6/20/2025] SUPPORT (Sy Bohy):
 Can we jump on a call directly with said customer and get to the bottom of it asap? We can’t afford to have folks complaining for weeks and not be crazy proactive about it. This is how churn happens
@@ -3248,7 +3248,7 @@ ah, ok, yes, there have been indeed recent changes:  `access_grants/update` is n
 yes, I believe this is the experience we can offer at the moment due to restrictions on Instant Apps, cc <@U0775E12MJM|Phil>
 
 [6/25/2025] SUPPORT (Phil):
-<@U0FDXBEDA|peter> — on android you must install the full app to be able to unlock a door since there is no access to Bluetooth in that context. However, it will keep your key loaded and you will not leave that screen. 
+<@U0FDXBEDA|peter> — on android you must install the full app to be able to unlock a door since there is no access to Bluetooth in that context. However, it will keep your key loaded and you will not leave that screen.
 
 [6/25/2025] SUPPORT (Ravi Chodavarapu):
 <@U0FDXBEDA|peter> quick update: the issues you reported on validation and the timezone acceptance should be fixed. :pray: for reporting
@@ -3501,7 +3501,7 @@ tracks... but appreciate you looking into setting up a call and please keep me p
 [6/25/2025] SUPPORT (Sy Bohy):
 <@U08LTJT5FT8|Molly Hatch> would it be possible to know the name of the customers impacted by the lack of access to Latch? Do you also have a sense if those customers would expand their relationship with latch (ie buy more hardware) over time?
 
-<@U04MFQT2BV4|Sharon Lee> on our team is going to escalate to their CRO but we need some help identifying to him the customers that are likely to be upset if Latch refuses to onboard you guys. 
+<@U04MFQT2BV4|Sharon Lee> on our team is going to escalate to their CRO but we need some help identifying to him the customers that are likely to be upset if Latch refuses to onboard you guys.
 
 [6/25/2025] CUSTOMER (Molly Hatch):
 Thanks Sy and Sharon!
@@ -3552,7 +3552,7 @@ ZRS responded asking for manual workarounds where they create pin codes in Latch
 I haven't heard back from Latch directly on our email thread.. but I'll keep you posted if there's any good traction through any channel.
 
 [7/3/2025] SUPPORT (Sy Bohy):
-The heck kind of work around is this… 
+The heck kind of work around is this…
 
 [7/3/2025] SUPPORT (Sy Bohy):
 What a joke
@@ -3667,10 +3667,10 @@ Codes:
 b7e635c3-eff8-444a-9675-f12cde756974
 b5deb3bb-47e6-42a0-93d5-e924fa678816
 
-Device 2: 
+Device 2:
 - dfe95182-1320-4ec0-b63f-9a40718baf0c
 
-Codes: 
+Codes:
 - 265afddd-adb5-48fd-a8fb-3f24651673ad
  0364af62-1e39-4ab4-85de-485465e7e92c```
 
@@ -3821,7 +3821,7 @@ Does that work for you guys?
 
 
 === CONVERSATION 62 ===
-TITLE: This is great! Thank you Collin!! 
+TITLE: This is great! Thank you Collin!!
 CUSTOMER: Canary Technologies
 WORKSPACE ID: Not specified
 ASSIGNED TO: Collin
@@ -3836,7 +3836,7 @@ CONVERSATION THREAD:
 What is up Canary! I just dropped off a big package at FedEx that contains 14 locks. If my calculations are correct, this brings your lock total to 19 (correct me if I am wrong). ASSA ABLOY still has 1 lock outstanding with us, so I think that number should be correct. The package should get there in the late morning on Monday July 7th and the tracking number is 882487867246
 
 [7/2/2025] CUSTOMER (Navid):
-This is great! Thank you Collin!! 
+This is great! Thank you Collin!!
 
 ================================================================================
 
@@ -4260,13 +4260,13 @@ Thank you for your patience as we worked through this. Please let me know if you
 Hey <@U01A6BVD03E|Tom>, sorry for the delay, have you received my email?
 
 [6/16/2025] CUSTOMER (Tom):
-<@U05THNTEPD2|Andrii Tymofieiev> no, I just checked, I haven’t received any emails recently 
+<@U05THNTEPD2|Andrii Tymofieiev> no, I just checked, I haven’t received any emails recently
 
 [6/16/2025] SUPPORT (Andrii Tymofieiev):
 <@U01A6BVD03E|Tom> You should have received this email
 
 [6/16/2025] CUSTOMER (Tom):
-Yes, I got that email. Curtis doesn't have access to the Seam console, please let me know if you need any ids and ill be happy to provide them. I would really like to get this issue solved so please don't hesitate to ask for any information you need from Curtis or me. 
+Yes, I got that email. Curtis doesn't have access to the Seam console, please let me know if you need any ids and ill be happy to provide them. I would really like to get this issue solved so please don't hesitate to ask for any information you need from Curtis or me.
 
 [6/23/2025] CUSTOMER (Tom):
 <@U05THNTEPD2|Andrii Tymofieiev> are you getting the emails from Curtis?
@@ -4394,7 +4394,7 @@ To answer your 2nd question - timestamps from event logs will always be in UTC. 
 
 
 === CONVERSATION 70 ===
-TITLE: • Seam 
+TITLE: • Seam
 CUSTOMER: linkbase-seam
 WORKSPACE ID: Not specified
 ASSIGNED TO: Unassigned
@@ -4406,7 +4406,7 @@ SUMMARY: null
 
 CONVERSATION THREAD:
 [6/30/2025] CUSTOMER (Shiven):
-• Seam 
+• Seam
 
 ================================================================================
 
@@ -4812,13 +4812,13 @@ SUMMARY: The customer reported an issue with PIN codes not being sent to the cor
 
 CONVERSATION THREAD:
 [6/13/2025] SUPPORT (Forrest):
-<@U02P77QG5H6|Jeff O’Malley> Addi mentioned another issue with the PIN codes sending to the switch instead of the pin pad. Should be sending to EK1xxxx instead of IGK3xxx. 
+<@U02P77QG5H6|Jeff O’Malley> Addi mentioned another issue with the PIN codes sending to the switch instead of the pin pad. Should be sending to EK1xxxx instead of IGK3xxx.
 
-Can you add any more detail to the issue here so we can see if we can help? 
+Can you add any more detail to the issue here so we can see if we can help?
 
-It sounds like Igloo needs to change their code logic so they don’t allow codes to be generated on the switch but happy to see if there’s another workaround also. 
+It sounds like Igloo needs to change their code logic so they don’t allow codes to be generated on the switch but happy to see if there’s another workaround also.
 
-Cc <@U076PSRFY4V|Jack Finley> <@U06AY2HQXFC|Frank> 
+Cc <@U076PSRFY4V|Jack Finley> <@U06AY2HQXFC|Frank>
 
 [6/13/2025] CUSTOMER (Jeff O’Malley):
 We see 2 “devices” in seam.  Neither one will create access codes
@@ -4932,7 +4932,7 @@ Thanks!
 <@U02C0CDPFDG|Nikunj Vasani>
 
 [6/23/2025] CUSTOMER (Nikunj Vasani):
-Hi <@U076PSRFY4V|Jack Finley> 
+Hi <@U076PSRFY4V|Jack Finley>
 Thank you for get it resolved.
 <@U01H7DV69PV|Parth Baraiya> is away for the day, he will confirm the same by tomorrow.
 Confirm if August and Yale both are working now?
@@ -4999,7 +4999,7 @@ Not sure what you mean. Currently what I’m doing is initialize the sdk and if 
 <@U04FDN7D34K|Harley Lovitos> in Android the PhoneRegistrationFinished is sent as part of the setup process but it doesn't mean that there are credentials that can unlock a door. Could you please listen to the `SeamEvent.Phone.Native.Credentials.Refreshed` event? it has an attribute called `credentials` which is a list. If the list is not empty it means that you have credentials that can unlock a door
 
 [6/26/2025] CUSTOMER (Harley Lovitos):
-Ok will do that. Actually I have that on ios but will do it on Android too. Just weird that it was working like this when I had some testing on site. 
+Ok will do that. Actually I have that on ios but will do it on Android too. Just weird that it was working like this when I had some testing on site.
 
 [6/26/2025] SUPPORT (Diego):
 One more thing: the type of the credentials that you get from that event is `SeamSchema.AcsCredential`. It has a `cardNumber` and a `credentialId` . You can play more defensive by checking if those values are not empty.
@@ -5015,7 +5015,7 @@ Yes, <@U04FDN7D34K|Harley Lovitos> . Like that one
 So if that log is showing,we can do the scanning, right?
 
 [6/26/2025] SUPPORT (Diego):
-Right 
+Right
 
 [6/26/2025] CUSTOMER (Harley Lovitos):
 <@U076PSRFY4V|Jack Finley> kindly test new Android Grata build:
@@ -5394,9 +5394,9 @@ SUMMARY: The customer inquired about onboarding a specific lock model, and the s
 
 CONVERSATION THREAD:
 [7/8/2025] CUSTOMER (Shiven):
-Hi team 
+Hi team
 
-Just FYI, this is the lock they are trying to onboard. 
+Just FYI, this is the lock they are trying to onboard.
 
 <https://www.seam.co/smartlocks/ultraloq_u-bolt|https://www.seam.co/smartlocks/ultraloq_u-bolt>
 
@@ -5846,8 +5846,8 @@ cc <@U06AY2HQXFC|Frank> <@U012TSFGM5M|Sy Bohy>
 hey <@U05EAG559U2|Simon Seroussi>, we haven't yet cracked the Cameras API, but I'm curious — if we had a non-API integration route, one where you could embed a Seam-hosted component, would that be interesting to you?
 
 [6/16/2025] CUSTOMER (Simon Seroussi):
-hey <@U06AY2HQXFC|Frank> — could you expand on this? 
-are you referring to an SDK or UI component that could show camera feed? 
+hey <@U06AY2HQXFC|Frank> — could you expand on this?
+are you referring to an SDK or UI component that could show camera feed?
 
 [6/16/2025] SUPPORT (Frank):
 A UI component first. We'd be able to work on the SDK and unified API over time, but curious if a UI component would be useful to speed up your integration.
@@ -5863,13 +5863,13 @@ absolutely open to chat. I think it may be better to chat with <@U05F078U1NU|Jea
 
 We probably won’t be able to use UI components in general because we built our own and they have a lot of specific features that also relate to SuiteOp features + integrations that seem may not cover.
 
-But, for cameras, we could likely make that work! 
+But, for cameras, we could likely make that work!
 
 [6/16/2025] SUPPORT (Frank):
 Ah that makes sense. Would still love to chat to understand your use cases a little better, and then refocus it on cameras. Since it's early stages, it'd be a perfect time to sanity check the foundation of these new customer portals / components.
 
 [6/18/2025] SUPPORT (Sy Bohy):
-<@U05EAG559U2|Simon Seroussi> I’m gonna grab time with you tomorrow chat cameras. I want to understand exact use case and features we need to build on top of the video stream 
+<@U05EAG559U2|Simon Seroussi> I’m gonna grab time with you tomorrow chat cameras. I want to understand exact use case and features we need to build on top of the video stream
 
 [6/20/2025] CUSTOMER (Simon Seroussi):
 <@U012TSFGM5M|Sy Bohy> need my cal? <https://meet.suiteop.com/meetings/sseroussi>
@@ -5974,7 +5974,7 @@ Hey <@U091LG0SDCJ|Kirill>, Dawn and I have availability at the following slots:
 If neither of those work, let me know some times that would!
 
 [7/2/2025] CUSTOMER (Kirill):
-<@U076PSRFY4V|Jack Finley> thanks for the update. Tomorrow 9:30am PST works for me. 
+<@U076PSRFY4V|Jack Finley> thanks for the update. Tomorrow 9:30am PST works for me.
 
 [7/2/2025] SUPPORT (Jack Finley):
 <@U091LG0SDCJ|Kirill> Great, invite sent. Talk soon!

@@ -17,6 +17,6 @@ testpaths = ["tests"]
 line-length = 88
 
 [tool.pyright]
-include = ["src"]
+include = ["src", "tests"]
 venvPath = "."
 venv = ".venv"

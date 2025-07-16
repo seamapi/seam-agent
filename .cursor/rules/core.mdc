@@ -12,6 +12,7 @@ alwaysApply: true
 
 ## Planning and Execution
 - **Follow the Plan:** Always work from the `plan.md` file if it exists.
+- **Refer to PRD** Check in on `docs/customer-suport-agent-prd.md`
 - **Track Progress:** Check off TODOs as they are completed.
 
 ## Simplicity and Focus
