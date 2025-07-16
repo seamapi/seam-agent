@@ -1,0 +1,12 @@
+[project]
+name = "seam-agent"
+version = "0.1.0"
+description = "AI Customer Support Assistant for Seam"
+authors = [{ name = "Phlilip Chmalts", email = "phil@getseam.com" }]
+requires-python = ">=3.9"
+dependencies = ["fastmcp", "pydantic", "uv"]
+
+[tool.uv]
+# Manage project dependencies with uv
+# https://github.com/astral-sh/uv
+dev-dependencies = ["pytest", "ruff", "pre-commit"]
