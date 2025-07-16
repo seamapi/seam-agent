@@ -2,11 +2,21 @@
 name = "seam-agent"
 version = "0.1.0"
 description = "AI Customer Support Assistant for Seam"
-authors = [{ name = "Phlilip Chmalts", email = "phil@getseam.com" }]
-requires-python = ">=3.9"
-dependencies = ["fastmcp", "pydantic", "uv"]
+authors = [{ name = "Your Name", email = "you@example.com" }]
+requires-python = ">=3.10"
+dependencies = ["fastmcp", "pydantic"]
 
-[tool.uv]
-# Manage project dependencies with uv
-# https://github.com/astral-sh/uv
-dev-dependencies = ["pytest", "ruff", "pre-commit"]
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "pre-commit", "pyright"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+
+[tool.pyright]
+include = ["src"]
+venvPath = "."
+venv = ".venv"
