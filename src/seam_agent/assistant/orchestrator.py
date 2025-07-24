@@ -1,48 +1,59 @@
-import asyncio
-from seam_agent.assistant.models import AnalysisResult
-from seam_agent.connectors import seam_api
+from typing import Any
+from seam_agent.connectors.seam_api import SeamAPIClient
 from fastmcp import Client
 from fastmcp.client.transports import StdioTransport
 
 
-def analyze_device_issue(device_id: str) -> AnalysisResult:
+async def analyze_device_issue(device_id: str) -> dict[str, Any]:
     """
     Analyzes a device issue by fetching device data and action attempts.
 
     This is a mock implementation that does not call an LLM.
+    Returns raw JSON suitable for LLM processing.
     """
-    device = seam_api.get_device(device_id)
-    action_attempts = seam_api.list_action_attempts(device_id)
+    async with SeamAPIClient() as client:
+        device = await client.get_device(device_id)
+        # Note: list_action_attempts doesn't exist yet in our client
+        # This would need to be implemented or mocked
+        action_attempts = []  # Mock data for now
+
+    # Extract key info from device JSON
+    display_name = device.get("display_name", "Unknown Device")
+    is_online = device.get("properties", {}).get("online", False)
 
     # In a real implementation, an LLM would generate this summary.
     summary = (
-        f"The device '{device.display_name}' is currently "
-        f"{'online' if device.is_online else 'offline'}. "
+        f"The device '{display_name}' is currently "
+        f"{'online' if is_online else 'offline'}. "
         "There are recent action attempts with both success and failure statuses."
     )
 
     timeline = [
-        f"14:41:11 - Action '{a.action_type}' resulted in '{a.status}'"
+        f"14:41:11 - Action '{a.get('action_type', 'unknown')}' resulted in '{a.get('status', 'unknown')}'"
         for a in action_attempts
     ]
 
-    return AnalysisResult(
-        device=device,
-        action_attempts=action_attempts,
-        summary=summary,
-        timeline=timeline,
-        root_cause="Device is offline.",  # Mock root cause
-    )
+    # Return JSON structure for LLM processing
+    return {
+        "device": device,  # Full device JSON
+        "action_attempts": action_attempts,
+        "summary": summary,
+        "timeline": timeline,
+        "root_cause": "Device is offline.",  # Mock root cause
+        "analysis_type": "device_issue_analysis",
+    }
 
 
-transport = StdioTransport(command="python", args=["seam_agent/assistant/server.py"])
-client = Client(transport)
+# Helper functions for MCP client integration (for future use)
+def create_mcp_client():
+    """Creates an MCP client for tool integration."""
+    transport = StdioTransport(command="python", args=["assistant/server.py"])
+    return Client(transport)
 
 
-async def call_tool(name: str):
+async def call_tool(name: str, device_id: str):
+    """Example function for calling MCP tools (for future integration)."""
+    client = create_mcp_client()
     async with client:
-        result = await client.call_tool("get_device", {"device_id": name})
-        print(result)
-
-
-asyncio.run(call_tool("my_device_id"))
+        result = await client.call_tool("get_device", {"device_id": device_id})
+        return result

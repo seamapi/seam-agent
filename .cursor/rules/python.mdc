@@ -1,5 +1,5 @@
 ---
-description: Use this when editing any python files. This describes data modeling and structure. 
+description: Use this when editing any python files. This describes data modeling and structure.
 alwaysApply: false
 ---
 # Seam Agent Coding Rules
@@ -8,30 +8,68 @@ This document outlines the coding standards and best practices for the Seam Agen
 
 ## 1. Data Modeling with Pydantic
 
-**Rule:** All data models, schemas, and configuration objects MUST be implemented using `pydantic`.
+**Rule:** Use pydantic models for business logic and data validation. For data going to LLMs, prefer raw JSON.
 
-**Rationale:** `pydantic` provides runtime type checking, data validation, and serialization, which is critical for building robust and reliable integrations with external APIs and data sources. It ensures that the data flowing through the system is always well-formed.
+**When to use Pydantic:**
+- Complex business logic that requires validation
+- Data that needs transformation or computation
+- Configuration management
+- API request/response models with validation needs
+
+**When to use Raw JSON/Dict:**
+- Data going directly to LLMs (they work well with raw JSON)
+- Simple API responses that don't need validation
+- Temporary data structures
+- When the overhead of model creation isn't worth the benefits
 
 **Example:**
 
 ```python
 from pydantic import BaseModel, Field
-from typing import List, Optional
+from typing import Any
 
-class DeviceInfo(BaseModel):
+# For business logic with validation
+class DeviceConfig(BaseModel):
     device_id: str = Field(..., description="The unique identifier for the device.")
     display_name: str
     is_online: bool
-    errors: List[str] = []
+    errors: list[str] = []
 
-class AnalysisResult(BaseModel):
-    device_info: DeviceInfo
-    summary: str
-    timeline: List[str]
-    root_cause: Optional[str] = None
+# For LLM-bound data - just return the JSON
+async def get_device_for_llm(device_id: str) -> dict[str, Any]:
+    """Return raw device data for LLM processing."""
+    response = await api_client.get_device(device_id)
+    return response  # Raw JSON is fine for LLMs
 ```
 
-## 2. Tool Creation with FastMCP
+## 2. Modern Python Typing
+
+**Rule:** Use modern Python typing syntax (Python 3.9+) with built-in generic types and union syntax.
+
+**Guidelines:**
+- Use `list[T]` instead of `List[T]`
+- Use `dict[K, V]` instead of `Dict[K, V]`
+- Use `set[T]` instead of `Set[T]`
+- Use `tuple[T, ...]` instead of `Tuple[T, ...]`
+- Use `T | None` instead of `Optional[T]`
+- Use `T | U` instead of `Union[T, U]`
+- Only import from `typing` when necessary (e.g., `Any`, `Literal`, `Protocol`)
+
+**Example:**
+
+```python
+from typing import Any, Literal
+from pydantic import BaseModel
+
+class Device(BaseModel):
+    device_id: str
+    capabilities: list[Literal["lock", "thermostat", "sensor"]]
+    metadata: dict[str, Any]
+    errors: list[str] = []
+    nickname: str | None = None
+```
+
+## 3. Tool Creation with FastMCP
 
 **Rule:** All functions intended to be used by the AI assistant MUST be exposed as tools using the `FastMCP` framework.
 
@@ -41,89 +79,28 @@ class AnalysisResult(BaseModel):
 
 ```python
 from fastmcp import FastMCP
-from .models import DeviceInfo
+from typing import Any
 
 mcp = FastMCP(name="SeamSupportTools")
 
 @mcp.tool
-def get_device_status(device_id: str) -> DeviceInfo:
+def get_device_status(device_id: str) -> dict[str, Any]:
     """
     Retrieves the current status and details for a given device ID.
+    Returns raw JSON data suitable for LLM processing.
     """
-    # ... implementation to query PostgreSQL or Seam API ...
-    return DeviceInfo(...)
+    # Return raw JSON - LLMs handle this well
+    return api_client.get_device(device_id)
 ```
 
-## 3. Configuration Management
+## 4. Configuration Management
 
 **Rule:** Application configuration (API keys, database URIs, etc.) SHOULD be managed via `pydantic`'s `BaseSettings`.
 
 **Rationale:** Using `pydantic` for settings management allows for type-safe configuration that can be loaded from environment variables or `.env` files, providing a consistent and reliable way to configure the application in different environments.
 
-## 4. Code Style and Linting
+## 5. Code Style and Linting
 
 **Rule:** All code MUST adhere to the formatting standards enforced by `ruff` and pass all linter checks.
 
-**Rationale:** A consistent code style improves readability and maintainability. `ruff` is used as an all-in-one linter and formatter to ensure consistency across the project. Pre-commit hooks should be used to enforce this automatically. # Seam Agent Coding Rules
-
-This document outlines the coding standards and best practices for the Seam Agent project.
-
-## 1. Data Modeling with Pydantic
-
-**Rule:** All data models, schemas, and configuration objects MUST be implemented using `pydantic`.
-
-**Rationale:** `pydantic` provides runtime type checking, data validation, and serialization, which is critical for building robust and reliable integrations with external APIs and data sources. It ensures that the data flowing through the system is always well-formed.
-
-**Example:**
-
-```python
-from pydantic import BaseModel, Field
-from typing import List, Optional
-
-class DeviceInfo(BaseModel):
-    device_id: str = Field(..., description="The unique identifier for the device.")
-    display_name: str
-    is_online: bool
-    errors: List[str] = []
-
-class AnalysisResult(BaseModel):
-    device_info: DeviceInfo
-    summary: str
-    timeline: List[str]
-    root_cause: Optional[str] = None
-```
-
-## 2. Tool Creation with FastMCP
-
-**Rule:** All functions intended to be used by the AI assistant MUST be exposed as tools using the `FastMCP` framework.
-
-**Rationale:** `FastMCP` provides a standardized, safe, and discoverable way to expose Python functions to an LLM. It handles the protocol complexities, allowing us to focus on the tool's logic. This ensures that the AI's capabilities are well-defined, versioned, and secure.
-
-**Example:**
-
-```python
-from fastmcp import FastMCP
-from .models import DeviceInfo
-
-mcp = FastMCP(name="SeamSupportTools")
-
-@mcp.tool
-def get_device_status(device_id: str) -> DeviceInfo:
-    """
-    Retrieves the current status and details for a given device ID.
-    """
-    # ... implementation to query PostgreSQL or Seam API ...
-    return DeviceInfo(...)
-```
-
-## 3. Configuration Management
-
-**Rule:** Application configuration (API keys, database URIs, etc.) SHOULD be managed via `pydantic`'s `BaseSettings`.
-
-**Rationale:** Using `pydantic` for settings management allows for type-safe configuration that can be loaded from environment variables or `.env` files, providing a consistent and reliable way to configure the application in different environments.
-
-## 4. Code Style and Linting
-
-**Rule:** All code MUST adhere to the formatting standards enforced by `ruff` and pass all linter checks.
-
-**Rationale:** A consistent code style improves readability and maintainability. `ruff` is used as an all-in-one linter and formatter to ensure consistency across the project. Pre-commit hooks should be used to enforce this automatically. 
+**Rationale:** A consistent code style improves readability and maintainability. `ruff` is used as an all-in-one linter and formatter to ensure consistency across the project. Pre-commit hooks should be used to enforce this automatically.
