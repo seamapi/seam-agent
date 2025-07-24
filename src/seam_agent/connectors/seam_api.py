@@ -125,3 +125,41 @@ class SeamAPIClient:
 
         data = response.json()
         return data.get("batch", {})
+
+    async def get_action_attempt(self, action_attempt_id: str) -> dict[str, Any]:
+        """
+        Get a specific action attempt by ID.
+
+        Args:
+            action_attempt_id: The action attempt ID to retrieve
+
+        Returns:
+            Action attempt dictionary with raw API data
+        """
+        params = {"action_attempt_id": action_attempt_id}
+
+        response = await self.client.get("/action_attempts/get", params=params)
+        response.raise_for_status()
+
+        data = response.json()
+        return data["action_attempt"]
+
+    async def list_action_attempts(
+        self, action_attempt_ids: list[str]
+    ) -> list[dict[str, Any]]:
+        """
+        List specific action attempts by their IDs.
+
+        Args:
+            action_attempt_ids: List of action attempt IDs to retrieve
+
+        Returns:
+            List of action attempt dictionaries with raw API data
+        """
+        params = {"action_attempt_ids": action_attempt_ids}
+
+        response = await self.client.get("/action_attempts/list", params=params)
+        response.raise_for_status()
+
+        data = response.json()
+        return data.get("action_attempts", [])

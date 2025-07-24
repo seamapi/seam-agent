@@ -4,9 +4,17 @@ from fastmcp.client.transports import StdioTransport
 import os
 
 SEAM_API_KEY = os.getenv("SEAM_API_KEY")
+QUICKWIT_URL = os.getenv("QUICKWIT_URL")
+QUICKWIT_API_KEY = os.getenv("QUICKWIT_API_KEY")
 
 if not SEAM_API_KEY:
     raise ValueError("SEAM_API_KEY is not set")
+
+if not QUICKWIT_URL:
+    raise ValueError("QUICKWIT_URL is not set")
+
+if not QUICKWIT_API_KEY:
+    raise ValueError("QUICKWIT_API_KEY is not set")
 
 client = Client(
     StdioTransport(
@@ -14,6 +22,8 @@ client = Client(
         args=["server.py"],
         env={
             "SEAM_API_KEY": SEAM_API_KEY,
+            "QUICKWIT_URL": QUICKWIT_URL,
+            "QUICKWIT_API_KEY": QUICKWIT_API_KEY,
         },
         cwd="src/seam_agent/assistant",
     ),
