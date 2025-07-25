@@ -2,10 +2,7 @@ import os
 from typing import Any, Optional, List, Dict
 from contextlib import asynccontextmanager
 
-try:
-    import asyncpg
-except ImportError:
-    asyncpg = None
+import asyncpg
 
 
 class DatabaseClient:
@@ -21,14 +18,36 @@ class DatabaseClient:
         if not self.database_url:
             raise ValueError("DATABASE_URL environment variable is required")
 
-        self.pool = None
+        self.pool: asyncpg.pool.Pool | None = None
 
     async def connect(self):
         """Initialize connection pool."""
         if not self.pool:
+            if not self.database_url:
+                raise ValueError("DATABASE_URL environment variable is required")
+            database_url = self._fix_ssl_config(self.database_url)
+
             self.pool = await asyncpg.create_pool(
-                self.database_url, min_size=1, max_size=10, command_timeout=30
+                database_url, min_size=1, max_size=10, command_timeout=30
             )
+
+    def _fix_ssl_config(self, url: str) -> str:
+        """Fix SSL configuration to be compatible with asyncpg."""
+        # Map common SSL modes to asyncpg-compatible ones
+        ssl_fixes = {
+            "sslmode=no-verify": "sslmode=require",
+            "sslmode=required": "sslmode=require",
+            "sslmode=preferred": "sslmode=prefer",
+            "sslmode=disabled": "sslmode=disable",
+            "sslmode=true": "sslmode=require",
+            "sslmode=false": "sslmode=disable",
+        }
+
+        # Apply SSL fixes
+        for old, new in ssl_fixes.items():
+            url = url.replace(old, new)
+
+        return url
 
     async def close(self):
         """Close connection pool."""
@@ -41,6 +60,9 @@ class DatabaseClient:
         """Get a database connection from the pool."""
         if not self.pool:
             await self.connect()
+
+        if not self.pool:
+            raise ValueError("Database connection pool is not initialized")
 
         async with self.pool.acquire() as connection:
             yield connection
@@ -166,7 +188,7 @@ class DatabaseClient:
             return [dict(row) for row in rows]
 
     async def execute_safe_query(
-        self, query: str, params: List[Any] = None
+        self, query: str, params: List[Any] = []
     ) -> List[Dict[str, Any]]:
         """
         Execute a safe, read-only query with parameter validation.
@@ -191,9 +213,6 @@ class DatabaseClient:
         for keyword in dangerous_keywords:
             if keyword in query_upper:
                 raise ValueError(f"Query contains dangerous keyword: {keyword}")
-
-        if params is None:
-            params = []
 
         async with self.get_connection() as conn:
             rows = await conn.fetch(query, *params)

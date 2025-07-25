@@ -6,6 +6,7 @@ import os
 SEAM_API_KEY = os.getenv("SEAM_API_KEY")
 QUICKWIT_URL = os.getenv("QUICKWIT_URL")
 QUICKWIT_API_KEY = os.getenv("QUICKWIT_API_KEY")
+DATABASE_URL = os.getenv("DATABASE_URL")
 
 if not SEAM_API_KEY:
     raise ValueError("SEAM_API_KEY is not set")
@@ -16,6 +17,9 @@ if not QUICKWIT_URL:
 if not QUICKWIT_API_KEY:
     raise ValueError("QUICKWIT_API_KEY is not set")
 
+if not DATABASE_URL:
+    raise ValueError("DATABASE_URL is not set")
+
 client = Client(
     StdioTransport(
         command="python",
@@ -24,6 +28,7 @@ client = Client(
             "SEAM_API_KEY": SEAM_API_KEY,
             "QUICKWIT_URL": QUICKWIT_URL,
             "QUICKWIT_API_KEY": QUICKWIT_API_KEY,
+            "DATABASE_URL": DATABASE_URL,
         },
         cwd="src/seam_agent/assistant",
     ),
@@ -66,6 +71,42 @@ async def main():
             print(f"   Result: {search_result}")
         except Exception as e:
             print(f"❌ Error calling search_devices: {e}")
+
+        print("\n" + "=" * 30 + "\n")
+
+        # Test using the search_logs tool
+        print("Testing search_logs tool...")
+        try:
+            log_search_result = await client.call_tool(
+                "search_logs",
+                {
+                    "query": "level:ERROR",
+                    "limit": 5,
+                    "index": "application_logs_v4",
+                },
+            )
+            print("✅ Successfully called search_logs tool")
+            print(f"   Result: {log_search_result}")
+        except Exception as e:
+            print(f"❌ Error calling search_logs: {e}")
+
+        print("\n" + "=" * 30 + "\n")
+
+        # Test using the search_logs tool with offset
+        print("Testing search_logs tool with offset...")
+        try:
+            await client.call_tool(
+                "search_logs",
+                {
+                    "query": "level:ERROR",
+                    "limit": 2,
+                    "offset": 5,
+                    "index": "application_logs_v4",
+                },
+            )
+            print("✅ Successfully called search_logs tool with offset")
+        except Exception as e:
+            print(f"❌ Error calling search_logs with offset: {e}")
 
 
 if __name__ == "__main__":

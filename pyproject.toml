@@ -8,7 +8,12 @@ version = "0.1.0"
 description = "AI Customer Support Assistant for Seam"
 authors = [{ name = "Your Name", email = "you@example.com" }]
 requires-python = ">=3.10"
-dependencies = ["fastmcp==2.10.6", "pydantic", "httpx"]
+dependencies = [
+    "fastmcp==2.10.6",
+ "pydantic",
+ "httpx",
+ "asyncpg>=0.30.0",
+]
 
 [project.optional-dependencies]
 dev = ["pytest", "ruff", "pre-commit", "pyright"]

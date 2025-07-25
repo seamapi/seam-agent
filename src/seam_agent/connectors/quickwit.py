@@ -1,7 +1,7 @@
 import httpx
 import os
 from typing import Any, Optional, List, Dict
-from datetime import datetime, timedelta
+from datetime import datetime
 
 
 class QuickwitClient:
@@ -38,33 +38,46 @@ class QuickwitClient:
         start_time: Optional[datetime] = None,
         end_time: Optional[datetime] = None,
         limit: int = 100,
-        device_id: Optional[str] = None,
+        start_offset: int = 0,
     ) -> List[Dict[str, Any]]:
         """
-        Search logs in Quickwit index.
+        Search logs in a Quickwit index with a flexible query.
+
+        This is a powerful, generic search tool. The LLM is responsible for
+        constructing the 'query' string using Quickwit's query language.
 
         Args:
-            index: Quickwit index name to search
-            query: Search query string
-            start_time: Start time for log search
-            end_time: End time for log search
-            limit: Maximum number of results to return
-            device_id: Optional device ID to filter logs
+            index: Quickwit index name (e.g., 'application_logs_v4').
+            query: The search query string. Can include filters on any field
+                   in the schema (e.g., 'device_id:dev_123 AND level:ERROR').
+            start_time: Optional start time for the search window.
+            end_time: Optional end time for the search window.
+            limit: Maximum number of log entries to return.
+            start_offset: Number of log entries to skip from the beginning.
 
         Returns:
-            List of log entries matching the search criteria
+            A list of log entries matching the search criteria.
+
+        Query Examples:
+            - To find errors for a device:
+              query='device_id:dev_123 AND level:ERROR'
+            - To find logs for a workspace:
+              query='workspace_id:ws_abc AND "some error message"'
+            - To find logs for a specific job:
+              query='job_id:job_xyz'
         """
-        # Build the search query - keep it simple for Quickwit
         search_params = {
             "query": query,
             "max_hits": limit,
+            "start_offset": start_offset,
+            "format": "json",
         }
 
         # Add time range filters if provided (using Quickwit's time range format)
         if start_time:
-            search_params["start_timestamp"] = int(start_time.timestamp())
+            search_params["start_timestamp"] = int(start_time.timestamp() * 1000)
         if end_time:
-            search_params["end_timestamp"] = int(end_time.timestamp())
+            search_params["end_timestamp"] = int(end_time.timestamp() * 1000)
 
         try:
             response = await self.client.post(
@@ -76,125 +89,12 @@ class QuickwitClient:
             return data.get("hits", [])
 
         except httpx.HTTPStatusError as e:
-            # Handle common Quickwit errors gracefully
             if e.response.status_code == 404:
                 raise ValueError(f"Index '{index}' not found")
             elif e.response.status_code == 400:
-                raise ValueError(f"Invalid search query: {query}")
+                error_detail = e.response.json().get("detail", str(e))
+                raise ValueError(
+                    f"Invalid search query: {query}. Error: {error_detail}"
+                )
             else:
                 raise
-
-    async def search_device_logs(
-        self,
-        device_id: str,
-        index: str = "application_logs_v4",
-        hours_back: int = 24,
-        error_only: bool = False,
-        limit: int = 100,
-    ) -> List[Dict[str, Any]]:
-        """
-        Search logs for a specific device.
-
-        Args:
-            device_id: Device ID to search for
-            index: Quickwit index to search (default: application_logs_v4)
-            hours_back: Number of hours back to search
-            error_only: If True, only return error/warning logs
-            limit: Maximum number of results
-
-        Returns:
-            List of log entries for the device
-        """
-        end_time = datetime.now()
-        start_time = end_time - timedelta(hours=hours_back)
-
-        # Build simple query for Quickwit
-        if error_only:
-            query = f"device_id:{device_id} AND (level:ERROR OR level:WARN OR level:WARNING)"
-        else:
-            query = f"device_id:{device_id}"
-
-        return await self.search_logs(
-            index=index,
-            query=query,
-            start_time=start_time,
-            end_time=end_time,
-            limit=limit,
-        )
-
-    async def search_application_logs(
-        self,
-        query: str,
-        workspace_id: str | None = None,
-        hours_back: int = 24,
-        limit: int = 100,
-    ) -> List[Dict[str, Any]]:
-        """
-        Search application logs with workspace filtering.
-
-        Uses application_logs_v4 index which has device_id, workspace_id,
-        and other metadata fields optimized for device investigation.
-
-        Args:
-            query: Search query string
-            workspace_id: Optional workspace ID to filter results
-            hours_back: How many hours back to search
-            limit: Maximum number of results
-
-        Returns:
-            List of application log entries
-        """
-        from datetime import timedelta
-
-        end_time = datetime.utcnow()
-        start_time = end_time - timedelta(hours=hours_back)
-
-        # Add workspace filter if provided
-        if workspace_id:
-            query = f"({query}) AND workspace_id:{workspace_id}"
-
-        return await self.search_logs(
-            index="application_logs_v4",
-            query=query,
-            start_time=start_time,
-            end_time=end_time,
-            limit=limit,
-        )
-
-    async def search_beta_logs(
-        self,
-        query: str,
-        workspace_id: str | None = None,
-        hours_back: int = 24,
-        limit: int = 100,
-    ) -> List[Dict[str, Any]]:
-        """
-        Search beta application logs.
-
-        Uses application_logs_v5_beta_2 index for newer log format.
-
-        Args:
-            query: Search query string
-            workspace_id: Optional workspace ID to filter results
-            hours_back: How many hours back to search
-            limit: Maximum number of results
-
-        Returns:
-            List of beta log entries
-        """
-        from datetime import timedelta
-
-        end_time = datetime.utcnow()
-        start_time = end_time - timedelta(hours=hours_back)
-
-        # Add workspace filter if provided
-        if workspace_id:
-            query = f"({query}) AND workspace_id:{workspace_id}"
-
-        return await self.search_logs(
-            index="application_logs_v5_beta_2",
-            query=query,
-            start_time=start_time,
-            end_time=end_time,
-            limit=limit,
-        )
