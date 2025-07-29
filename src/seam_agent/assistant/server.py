@@ -132,7 +132,7 @@ async def list_action_attempts(action_attempt_ids: list[str]) -> list[dict[str, 
         return action_attempts
 
 
-@mcp.tool
+@mcp.tool(enabled=False)
 async def find_device_action_attempts(device_id: str) -> list[dict[str, Any]]:
     """
     Find action attempts related to a specific device using universal search.
@@ -177,7 +177,7 @@ async def search_logs(
     index: str = "application_logs_v4",
     start_time: str | None = None,
     end_time: str | None = None,
-    limit: int = 100,
+    limit: int = 10,
     offset: int = 0,
 ) -> list[dict[str, Any]]:
     """
@@ -287,6 +287,8 @@ async def query_database(sql: str) -> list[dict[str, Any]]:
     - action_attempts table (operation history, errors, timing, status)
     - Any other tables needed for comprehensive analysis
 
+    Always use the schema prefix for table names (e.g., "seam.devices").
+
     Args:
         sql: SQL SELECT query string for investigation
 
@@ -294,9 +296,9 @@ async def query_database(sql: str) -> list[dict[str, Any]]:
         List of query results as dictionaries with full database fields.
 
     Examples:
-        - "SELECT * FROM devices WHERE device_id = 'c00718ad-4e66-45c4-a517-28fb3394c28d'"
-        - "SELECT * FROM action_attempts WHERE device_id = 'c00718ad-4e66-45c4-a517-28fb3394c28d' ORDER BY created_at DESC LIMIT 10"
-        - "SELECT d.device_type, d.nickname, aa.action_type, aa.status, aa.error FROM devices d JOIN action_attempts aa ON d.device_id = aa.device_id WHERE d.device_id = 'c00718ad-4e66-45c4-a517-28fb3394c28d'"
+        - "SELECT * FROM seam.device WHERE device_id = 'c00718ad-4e66-45c4-a517-28fb3394c28d'"
+        - "SELECT * FROM seam.action_attempt WHERE device_id = 'c00718ad-4e66-45c4-a517-28fb3394c28d' ORDER BY created_at DESC LIMIT 10"
+        - "SELECT d.device_type, d.nickname, aa.action_type, aa.status, aa.error FROM seam.device d JOIN seam.action_attempt aa ON d.device_id = aa.device_id WHERE d.device_id = 'c00718ad-4e66-45c4-a517-28fb3394c28d'"
     """
     # Validate database environment variables
     database_url = os.getenv("DATABASE_URL")
@@ -315,7 +317,7 @@ async def query_database(sql: str) -> list[dict[str, Any]]:
         raise ValueError(f"Database query failed: {e}")
 
 
-@mcp.resource("database://schema")
+@mcp.tool
 async def get_database_schema() -> str:
     """
     Get live database schema information by introspecting the actual database.
@@ -337,11 +339,14 @@ async def get_database_schema() -> str:
     try:
         async with DatabaseClient() as db_client:
             # Get all tables in the seam and diagnostics schemas (focus on Seam application and diagnostics tables)
+            # Filter out the massive public_log_entry_* tables that cause token explosion
             tables_query = """
             SELECT table_schema, table_name
             FROM information_schema.tables
             WHERE table_schema IN ('seam', 'diagnostics')
             AND table_type = 'BASE TABLE'
+            AND table_name NOT LIKE 'public_log_entry_%'  -- Filter out massive log tables
+            AND table_name NOT LIKE 'job_log_%'          -- Filter out job log tables too
             ORDER BY
                 CASE WHEN table_schema = 'seam' THEN 1
                      WHEN table_schema = 'diagnostics' THEN 2
@@ -427,5 +432,5 @@ WHERE column_name = 'device_id' AND table_schema = 'public';
 
 
 if __name__ == "__main__":
-    print("🚀 Starting Seam Device Resources MCP server...")
+    print("🚀 Starting Seam MCP server...")
     mcp.run()

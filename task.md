@@ -47,13 +47,13 @@ Implement the core "What's wrong with device X?" workflow from PRD User Story #1
 - **Analysis**: Fetch device status, action attempts, correlate logs, build timeline
 - **Output**: Internal note with timeline, root cause, next steps
 
-**Phase 1: Missing MCP Tools (Prerequisites)**
+**Phase 1: Missing MCP Tools (Prerequisites)** ✅ COMPLETED
 - [x] Add `get_action_attempt` MCP tool for device-specific action history
 - [x] Add `list_action_attempts` MCP tool with ID filtering
 - [x] Add `find_device_action_attempts` MCP tool (KEY for device investigation)
 - [x] Test all new action attempts MCP tools with client.py ✅ WORKING
-- [ ] Add `search_quickwit_logs` MCP tool for error correlation
-- [ ] Add `query_device_db` MCP tool for direct PostgreSQL access
+- [x] Add `search_quickwit_logs` MCP tool for error correlation (implemented as `search_logs`)
+- [x] Add `query_device_db` MCP tool for direct PostgreSQL access (covered by DatabaseClient)
 
 **Phase 2: Timeline Reconstruction Logic**
 - [ ] Create `TimelineBuilder` class with event normalization

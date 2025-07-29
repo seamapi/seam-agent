@@ -6,14 +6,19 @@ from typing import Any
 class SeamAPIClient:
     """Async client for interacting with Seam device endpoints."""
 
+    api_key: str
+    base_url: str
+    client: httpx.AsyncClient
+
     def __init__(
         self, api_key: str | None = None, base_url: str = "https://connect.getseam.com"
     ):
-        self.api_key = api_key or os.getenv("SEAM_API_KEY")
-        if not self.api_key:
+        resolved_api_key = api_key or os.getenv("SEAM_API_KEY")
+        if not resolved_api_key:
             raise ValueError(
                 "SEAM_API_KEY must be provided or set as environment variable"
             )
+        self.api_key = resolved_api_key
 
         self.base_url = base_url.rstrip("/")
         self.client = httpx.AsyncClient(
@@ -163,3 +168,21 @@ class SeamAPIClient:
 
         data = response.json()
         return data.get("action_attempts", [])
+
+    async def get_connected_account(self, connected_account_id: str) -> dict[str, Any]:
+        """
+        Get a specific connected account by ID.
+
+        Args:
+            connected_account_id: The connected account ID to retrieve
+
+        Returns:
+            Connected account dictionary with raw API data
+        """
+        params = {"connected_account_id": connected_account_id}
+
+        response = await self.client.get("/connected_accounts/get", params=params)
+        response.raise_for_status()
+
+        data = response.json()
+        return data["connected_account"]
