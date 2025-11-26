@@ -88,6 +88,44 @@ Do NOT provide analysis until ALL required tools have been used."""
         return "Based on all the data you've gathered from the tools above, please provide your detailed analysis and recommendations for this support issue. Include specific findings from the data and actionable next steps."
 
     @staticmethod
+    def get_format_investigation_note_prompt(raw_analysis: str) -> str:
+        """Generate prompt to format raw analysis into structured internal support note."""
+        return f"""Please reformat this investigation analysis into a clean, structured internal support note format:
+
+<investigation_analysis>
+{raw_analysis}
+</investigation_analysis>
+
+Format it as a professional internal note using this structure:
+
+🔍 **Device Analysis**: [Device Name] ([Device ID])
+
+⚠️ **Issue Identified**: [Brief description of the main issue]
+📊 **Status**: [Current status - active, resolved, under investigation, etc.]
+
+📋 **Timeline**:
+• [Key event 1]
+• [Key event 2]
+• [Key event 3]
+
+🔧 **Root Cause**: [Technical explanation of what caused the issue]
+
+🎯 **Next Steps**:
+1. [Specific action for customer/agent]
+2. [Follow-up recommendations]
+3. [Additional steps if needed]
+
+📎 **Additional Context**: [Any relevant technical details, links, or escalation notes]
+
+**IMPORTANT**: If admin links were generated during the investigation (look for admin_links tool results in the analysis above), include them in the Additional Context section using this format:
+
+**Admin Links for Further Investigation:**
+- [Link Title](URL) - Description
+- [Link Title](URL) - Description
+
+Extract the information directly from the analysis above. Keep it concise and actionable for support agents."""
+
+    @staticmethod
     def get_system_prompt() -> str:
         """Generate the system prompt that establishes role and behavior."""
         return """
@@ -99,6 +137,11 @@ Key Behaviors:
 - Format final output to match Seam's internal note structure
 - Provide specific, actionable recommendations
 - Never make assumptions without data to support them
+- When you generate admin links using the get_admin_links tool, always include them in your analysis so they appear in the final formatted note
+
+Tool Usage:
+- Use get_admin_links tool when you have gathered investigation context (device_id, workspace_id, access_codes, etc.) to provide relevant admin page links for further investigation
+- Include the generated admin links in your analysis so support agents have direct access to relevant admin pages
 
 Output Format: Your final response should be a structured internal note suitable for support agents, following the format specified in the user prompt.
 """

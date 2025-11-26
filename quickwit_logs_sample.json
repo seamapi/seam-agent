@@ -1,0 +1,873 @@
+[
+  {
+    "app": "seam-connect-worker-bullmq-prod",
+    "device_id": "c00718ad-4e66-45c4-a517-28fb3394c28d",
+    "event": {
+      "provider": "app"
+    },
+    "host": "81ac",
+    "job_id": "poll_august_device_c00718ad-4e66-45c4-a517-28fb3394c28d_b2e5a732-3fce-4e57-a294-3c92a4d0575e",
+    "level": "info",
+    "log_id": "87aa544d-206d-403c-b7a5-c21dc6dc5e51",
+    "message": "Received August events with missing eventID",
+    "metadata": {
+      "contextPath": "worker.task",
+      "events": [],
+      "fly": {
+        "app": {
+          "instance": "d8d3d10ce593e8",
+          "name": "seam-connect-worker-bullmq-prod"
+        },
+        "region": "sjc"
+      },
+      "job_id": "poll_august_device_c00718ad-4e66-45c4-a517-28fb3394c28d_b2e5a732-3fce-4e57-a294-3c92a4d0575e",
+      "name": "task",
+      "worker_hostname": "d8d3d10ce593e8"
+    },
+    "task_identifier": "poll_august_device",
+    "timestamp": "2025-07-24T21:17:57.659Z",
+    "workspace_id": "b2e5a732-3fce-4e57-a294-3c92a4d0575e"
+  },
+  {
+    "app": "seam-connect-worker-bullmq-prod",
+    "device_id": "c00718ad-4e66-45c4-a517-28fb3394c28d",
+    "event": {
+      "provider": "app"
+    },
+    "host": "81ac",
+    "job_id": "poll_august_device_c00718ad-4e66-45c4-a517-28fb3394c28d_b2e5a732-3fce-4e57-a294-3c92a4d0575e",
+    "level": "info",
+    "log_id": "87aa544d-206d-403c-b7a5-c21dc6dc5e51",
+    "log_type": "job_record",
+    "message": "Logged 18 logs for completed job poll_august_device_c00718ad-4e66-45c4-a517-28fb3394c28d_b2e5a732-3fce-4e57-a294-3c92a4d0575e",
+    "metadata": {
+      "contextPath": "worker.task",
+      "created_at": "2025-07-24T21:17:57.67Z",
+      "duration_ms": 7717,
+      "error_stack": null,
+      "error_string": null,
+      "fly": {
+        "app": {
+          "instance": "d8d3d10ce593e8",
+          "name": "seam-connect-worker-bullmq-prod"
+        },
+        "region": "sjc"
+      },
+      "graphile_job": {
+        "attempts": 1,
+        "attempts_made": 0,
+        "bullmq_id": "poll_august_device_c00718ad-4e66-45c4-a517-28fb3394c28d_b2e5a732-3fce-4e57-a294-3c92a4d0575e",
+        "bullmq_opts": {
+          "attempts": 1,
+          "backoff": {
+            "type": "custom"
+          },
+          "delay": 15446163,
+          "jobId": "poll_august_device_c00718ad-4e66-45c4-a517-28fb3394c28d_b2e5a732-3fce-4e57-a294-3c92a4d0575e",
+          "priority": 200,
+          "removeOnComplete": {
+            "age": 1
+          },
+          "removeOnFail": {
+            "age": 1
+          }
+        },
+        "created_at": "2025-07-24T17:00:23.787Z",
+        "key": "poll_august_device_c00718ad-4e66-45c4-a517-28fb3394c28d_b2e5a732-3fce-4e57-a294-3c92a4d0575e",
+        "payload": {
+          "device_id": "c00718ad-4e66-45c4-a517-28fb3394c28d",
+          "workspace_id": "b2e5a732-3fce-4e57-a294-3c92a4d0575e"
+        },
+        "priority": 200,
+        "processed_on": 1753391869950,
+        "qualifiedQueueName": "bull:{jobs}",
+        "queueName": "{jobs}",
+        "queue_name": null,
+        "run_at": "2025-07-24T17:00:23.787Z",
+        "task_identifier": "poll_august_device",
+        "worker_infrastructure_provider": "fly_machines",
+        "worker_pool": "bullmq"
+      },
+      "job_id": "poll_august_device_c00718ad-4e66-45c4-a517-28fb3394c28d_b2e5a732-3fce-4e57-a294-3c92a4d0575e",
+      "job_log_id": "87aa544d-206d-403c-b7a5-c21dc6dc5e51",
+      "name": "task",
+      "worker_hostname": "d8d3d10ce593e8"
+    },
+    "task_identifier": "poll_august_device",
+    "timestamp": "2025-07-24T21:17:57.689Z",
+    "workspace_id": "b2e5a732-3fce-4e57-a294-3c92a4d0575e"
+  },
+  {
+    "app": "seam-connect-worker-bullmq-prod",
+    "device_id": "c00718ad-4e66-45c4-a517-28fb3394c28d",
+    "event": {
+      "provider": "app"
+    },
+    "host": "81ac",
+    "job_id": "poll_august_device_c00718ad-4e66-45c4-a517-28fb3394c28d_b2e5a732-3fce-4e57-a294-3c92a4d0575e",
+    "level": "debug",
+    "log_id": "87aa544d-206d-403c-b7a5-c21dc6dc5e51",
+    "message": "[logAxios] axios response 200 GET /locks/logs/D3F96CC640DC4B05970ECBADC393855D/1752196751851/1753391876930",
+    "metadata": {
+      "baseURL": "https://api-production.august.com",
+      "contextPath": "worker.task",
+      "fly": {
+        "app": {
+          "instance": "d8d3d10ce593e8",
+          "name": "seam-connect-worker-bullmq-prod"
+        },
+        "region": "sjc"
+      },
+      "job_id": "poll_august_device_c00718ad-4e66-45c4-a517-28fb3394c28d_b2e5a732-3fce-4e57-a294-3c92a4d0575e",
+      "latencyMs": 722,
+      "method": "GET",
+      "name": "task",
+      "path": "/locks/logs/D3F96CC640DC4B05970ECBADC393855D/1752196751851/1753391876930",
+      "response": [
+        {
+          "action": "unlock",
+          "callingUser": {
+            "FirstName": "Seam",
+            "LastName": "Team",
+            "UserID": "c5c79079-95c8-4923-b793-14316b7f4bc6"
+          },
+          "dateTime": 1753367252000,
+          "eventID": "b1896f35-550c-42c8-aeee-0974d4ad3a6a",
+          "info": {
+            "agent": "mercury",
+            "credentialType": "pin",
+            "keypad": true
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753326592000,
+          "eventID": "d61f28da-1f46-41d3-bd0c-8f1fd95ef236",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Thu Jul 24 2025 03:09:52 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "onetouchlock",
+          "callingUser": {
+            "UserID": "onetouchlock"
+          },
+          "dateTime": 1753326581000,
+          "eventID": "17b08eed-4e7f-470a-b263-00f9ea8aa2ea",
+          "info": {
+            "agent": "mercury",
+            "keypad": true
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753326562000,
+          "eventID": "d80dadf7-3893-4142-bcc7-5d572bdb5fdc",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Thu Jul 24 2025 03:09:22 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753317762000,
+          "eventID": "c06bbfd1-d130-4729-8039-977a98e12406",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Thu Jul 24 2025 00:42:42 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753317751000,
+          "eventID": "8ead2daa-9d75-4ed7-98a9-7f6dddceac28",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Thu Jul 24 2025 00:42:31 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753317707000,
+          "eventID": "ff77d9ec-8aec-4ff7-ba03-b498f404840f",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Thu Jul 24 2025 00:41:47 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753317267000,
+          "eventID": "018dedd7-8d23-40da-ab83-46a6c3a38bd5",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Thu Jul 24 2025 00:34:27 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753311812000,
+          "eventID": "148afb4e-2a81-47b9-a636-62fdf74241ba",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 23:03:32 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753311548000,
+          "eventID": "4b3e307c-7d2b-4952-bd32-f8eed21de633",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 22:59:08 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753311427000,
+          "eventID": "80b3efb8-e7b9-4a63-b5ee-5e6c1fa94856",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 22:57:07 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753311394000,
+          "eventID": "9a84ad7c-bb83-4533-884b-6fe3963f859f",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 22:56:34 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753311317000,
+          "eventID": "eecc4a25-f110-4168-80a7-76a0a26edd93",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 22:55:17 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753311306000,
+          "eventID": "f8f76b32-ddc9-4a49-8f4e-31393c2bec69",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 22:55:06 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753311273000,
+          "eventID": "bf6ff572-7f71-4f56-82d1-50e14e09d0b8",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 22:54:33 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753311262000,
+          "eventID": "9bd49193-a12a-4ba5-aa53-a73b32a19a0d",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 22:54:22 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753306301000,
+          "eventID": "63d5df9d-3df2-4e8b-bf72-ec610826da92",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 21:31:41 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753306213000,
+          "eventID": "8189d506-8aad-4411-8d0b-21645ff8b3a4",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 21:30:13 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753295170000,
+          "eventID": "fb00505b-52ca-465b-add8-088a53d08f8b",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 18:26:10 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753295159000,
+          "eventID": "838b5ccc-02ba-41a9-8b20-7547f9ea8294",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 18:25:59 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753290847000,
+          "eventID": "6606b650-49fc-41b1-b022-821dced0f3d0",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 17:14:07 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753290836000,
+          "eventID": "32d71afc-353b-4547-9bce-ed37985c931a",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 17:13:56 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753290737000,
+          "eventID": "91303bb4-ac8f-4dbe-9b4a-d287e84cb831",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 17:12:17 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753290726000,
+          "eventID": "a49879f1-17f3-4902-b10b-820203205372",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 17:12:06 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753287767000,
+          "eventID": "584b3eea-06d3-4822-ba15-f997285c304d",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 16:22:47 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753287756000,
+          "eventID": "d5948ee7-4984-4788-af9c-e414317abd89",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 16:22:36 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753287382000,
+          "eventID": "ba2a0b6c-8000-4dfb-8524-5bc8033d16b6",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 16:16:22 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753287371000,
+          "eventID": "47c70d0b-07ea-431b-8b05-c8c759530987",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 16:16:11 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "unlock",
+          "callingUser": {
+            "FirstName": "Seam",
+            "LastName": "Team",
+            "UserID": "c5c79079-95c8-4923-b793-14316b7f4bc6"
+          },
+          "dateTime": 1753286942000,
+          "eventID": "15ceae7c-f8b2-47b0-82a6-756525b1603f",
+          "info": {
+            "agent": "mercury",
+            "credentialType": "pin",
+            "keypad": true
+          }
+        },
+        {
+          "action": "onetouchlock",
+          "callingUser": {
+            "UserID": "onetouchlock"
+          },
+          "dateTime": 1753236057000,
+          "eventID": "dd53c322-5994-4030-8a2c-0d5b69523fcb",
+          "info": {
+            "agent": "mercury",
+            "keypad": true
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753235306000,
+          "eventID": "e4a79aa6-ff01-4925-89f6-ede5d8ea01c1",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 01:48:26 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753235295000,
+          "eventID": "d956df32-da01-43f4-a5ad-59a83db91e3d",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 01:48:15 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753235284000,
+          "eventID": "0b975e7c-0b3f-463c-ae09-a89df250516d",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 01:48:04 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753235273000,
+          "eventID": "987191f7-54a0-4592-bcc3-3565af83d868",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 01:47:53 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753233140000,
+          "eventID": "157cacc1-543e-4941-8cad-806039a493bd",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 01:12:20 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753233129000,
+          "eventID": "9613970c-9011-4d45-b3d0-b14198318094",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Wed Jul 23 2025 01:12:09 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753225253000,
+          "eventID": "29c6f907-47d7-471d-97e9-f1da3d759a92",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Tue Jul 22 2025 23:00:53 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753225242000,
+          "eventID": "68b0396e-23b8-4bfc-8bdd-5f5b0f04dd8c",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Tue Jul 22 2025 23:00:42 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753222976000,
+          "eventID": "b676068a-ea53-44cd-86dc-70017641c7a6",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Tue Jul 22 2025 22:22:56 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753222965000,
+          "eventID": "32ba5860-4eaa-418d-ab2d-9bb6e8ae9d10",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Tue Jul 22 2025 22:22:45 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753217916000,
+          "eventID": "dd91d3f0-a6ef-41b6-a548-38f20a93bf53",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Tue Jul 22 2025 20:58:36 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753217905000,
+          "eventID": "4d230141-7b24-455c-acb8-3afb18c1ce68",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Tue Jul 22 2025 20:58:25 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753217344000,
+          "eventID": "50e340e6-4db6-48ec-8f8e-bdbef23a7a10",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Tue Jul 22 2025 20:49:04 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753217333000,
+          "eventID": "79c19479-f7b4-430a-bfc1-41740ef89d5f",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Tue Jul 22 2025 20:48:53 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753215222000,
+          "eventID": "dcdd5ede-9283-4b0f-a7b7-85e09227d56d",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Tue Jul 22 2025 20:13:42 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753215211000,
+          "eventID": "f5999121-b197-46c0-88f6-5dce9e88f312",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Tue Jul 22 2025 20:13:31 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753207192000,
+          "eventID": "aa5de93a-0ac5-4bd0-81f6-a3802325150c",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Tue Jul 22 2025 17:59:52 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753207181000,
+          "eventID": "dfd5aef9-1f42-473e-b653-b4b78d566628",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Tue Jul 22 2025 17:59:41 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        },
+        {
+          "action": "doorclosed",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753204486000,
+          "eventID": "9982783e-f519-421e-9558-a301ecf1cb04",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Tue Jul 22 2025 17:14:46 GMT+0000 (Coordinated Universal Time)doorclosed"
+          }
+        },
+        {
+          "action": "dooropen",
+          "callingUser": {
+            "FirstName": "Door State",
+            "LastName": "Change",
+            "UserID": "doorstatechange"
+          },
+          "dateTime": 1753204475000,
+          "eventID": "8b6f2727-195c-4e0b-8644-5f74b898f1a7",
+          "info": {
+            "DateLogActionID": "D3F96CC640DC4B05970ECBADC393855D+Tue Jul 22 2025 17:14:35 GMT+0000 (Coordinated Universal Time)dooropen"
+          }
+        }
+      ],
+      "responseHeaders": {
+        "api-version": "0.0.1",
+        "cf-cache-status": "DYNAMIC",
+        "cf-ray": "9646728209ac6a08-DFW",
+        "connection": "close",
+        "content-security-policy": "default-src 'self';base-uri 'self';font-src 'self' https: data:;form-action 'self';frame-ancestors 'self';img-src 'self' data:;object-src 'none';script-src 'self';script-src-attr 'none';style-src 'self' https: 'unsafe-inline';upgrade-insecure-requests",
+        "content-type": "application/json",
+        "cross-origin-opener-policy": "same-origin",
+        "cross-origin-resource-policy": "same-origin",
+        "date": "Thu, 24 Jul 2025 21:17:57 GMT",
+        "origin-agent-cluster": "?1",
+        "referrer-policy": "no-referrer",
+        "server": "cloudflare",
+        "set-cookie": "__cf_bm=y3H2vO80pzASozEpTsW.lr__PofmIR1XzHycAi4QspA-1753391877-1.0.1.1-fiIoKG9WGcFod1VYGmAcIG5kcmFpD91HIprHzxD0sa6J79owleHiGx3NSO8IiIzSrbV9HBd.B6BrhV.CSUrmN6Z2DVXMbzXBJzgIKGfvQZE; path=/; expires=Thu, 24-Jul-25 21:47:57 GMT; domain=.august.com; HttpOnly; Secure; SameSite=None",
+        "strict-transport-security": "max-age=31536000; includeSubDomains",
+        "transfer-encoding": "chunked",
+        "vary": "origin,access-control-request-method,access-control-request-headers, accept-encoding",
+        "x-august-access-token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MzIyMzA4MzcsImV4cCI6MTc2Mzc1OTg3NywiZXhwaXJlc0F0IjoiMjAyNS0xMS0yMVQyMToxNzo1Ny41MTlaIiwiaW5zdGFsbElkIjoiIiwicmVnaW9uIjoiIiwiYXBwbGljYXRpb25JZCI6IiIsInVzZXJJZCI6ImM1Yzc5MDc5LTk1YzgtNDkyMy1iNzkzLTE0MzE2YjdmNGJjNiIsInZJbnN0YWxsSWQiOmZhbHNlLCJ2UGFzc3dvcmQiOnRydWUsInZFbWFpbCI6dHJ1ZSwidlBob25lIjp0cnVlLCJoYXNJbnN0YWxsSWQiOmZhbHNlLCJoYXNQYXNzd29yZCI6ZmFsc2UsImhhc0VtYWlsIjpmYWxzZSwiaGFzUGhvbmUiOmZhbHNlLCJpc0xvY2tlZE91dCI6ZmFsc2UsImNhcHRjaGEiOiIiLCJlbWFpbCI6W10sInBob25lIjpbXSwidGVtcG9yYXJ5QWNjb3VudENyZWF0aW9uUGFzc3dvcmRMaW5rIjoiIiwiaGFzQXBwbGVVc2VySUQiOmZhbHNlLCJ2QXBwbGVVc2VySUQiOmZhbHNlLCJvYXV0aCI6eyJhcHBfbmFtZSI6IlNlYW0gUHJvZHVjdGlvbiIsImNsaWVudF9pZCI6IjkyNDQ3ODYxLWM3MjUtNDgyNS1hOTM1LWE1Nzg3ZDM5MmI4NiIsInJlZGlyZWN0X3VyaSI6Imh0dHBzOi8vYXVndXN0LnNlYW13ZWJob29rLmNvbS9hdWd1c3Qtd2ViaG9vayIsInBhcnRuZXJfaWQiOiI2NTQwMDA4NjZlYWVmODAwMTQyZDBkOTEifX0.Www3OaVmSL9PwhijHTLw_GIw3wL831jqXKGKf0qWrDw",
+        "x-content-type-options": "nosniff",
+        "x-dns-prefetch-control": "off",
+        "x-download-options": "noopen",
+        "x-frame-options": "SAMEORIGIN",
+        "x-permitted-cross-domain-policies": "none",
+        "x-response-time": "24",
+        "x-xss-protection": "0"
+      },
+      "status": 200,
+      "statusText": "OK",
+      "worker_hostname": "d8d3d10ce593e8"
+    },
+    "task_identifier": "poll_august_device",
+    "timestamp": "2025-07-24T21:17:57.652Z",
+    "workspace_id": "b2e5a732-3fce-4e57-a294-3c92a4d0575e"
+  },
+  {
+    "app": "seam-connect-worker-bullmq-prod",
+    "device_id": "c00718ad-4e66-45c4-a517-28fb3394c28d",
+    "event": {
+      "provider": "app"
+    },
+    "host": "81ac",
+    "job_id": "poll_august_device_c00718ad-4e66-45c4-a517-28fb3394c28d_b2e5a732-3fce-4e57-a294-3c92a4d0575e",
+    "level": "info",
+    "log_id": "87aa544d-206d-403c-b7a5-c21dc6dc5e51",
+    "message": "Polling lock events",
+    "metadata": {
+      "contextPath": "worker.task",
+      "fly": {
+        "app": {
+          "instance": "d8d3d10ce593e8",
+          "name": "seam-connect-worker-bullmq-prod"
+        },
+        "region": "sjc"
+      },
+      "job_id": "poll_august_device_c00718ad-4e66-45c4-a517-28fb3394c28d_b2e5a732-3fce-4e57-a294-3c92a4d0575e",
+      "name": "task",
+      "worker_hostname": "d8d3d10ce593e8"
+    },
+    "task_identifier": "poll_august_device",
+    "timestamp": "2025-07-24T21:17:56.926Z",
+    "workspace_id": "b2e5a732-3fce-4e57-a294-3c92a4d0575e"
+  },
+  {
+    "app": "seam-connect-worker-bullmq-prod",
+    "device_id": "c00718ad-4e66-45c4-a517-28fb3394c28d",
+    "event": {
+      "provider": "app"
+    },
+    "host": "81ac",
+    "job_id": "poll_august_device_c00718ad-4e66-45c4-a517-28fb3394c28d_b2e5a732-3fce-4e57-a294-3c92a4d0575e",
+    "level": "debug",
+    "log_id": "87aa544d-206d-403c-b7a5-c21dc6dc5e51",
+    "message": "Executing tiny action: DEVICE_LOCATION_REPORTED",
+    "metadata": {
+      "contextPath": "worker.task",
+      "fly": {
+        "app": {
+          "instance": "d8d3d10ce593e8",
+          "name": "seam-connect-worker-bullmq-prod"
+        },
+        "region": "sjc"
+      },
+      "job_id": "poll_august_device_c00718ad-4e66-45c4-a517-28fb3394c28d_b2e5a732-3fce-4e57-a294-3c92a4d0575e",
+      "location_name": "Seam HQ",
+      "name": "task",
+      "timezone": "America/Los_Angeles",
+      "type": "DEVICE_LOCATION_REPORTED",
+      "worker_hostname": "d8d3d10ce593e8"
+    },
+    "task_identifier": "poll_august_device",
+    "timestamp": "2025-07-24T21:17:56.904Z",
+    "workspace_id": "b2e5a732-3fce-4e57-a294-3c92a4d0575e"
+  }
+]

@@ -25,7 +25,7 @@ class ToolRegistry:
             )
             or len(parsed_query.access_codes) > 0
         ):
-            required_tools = {"get_access_codes", "get_audit_logs"}
+            required_tools = {"get_access_codes"}
         elif (
             "connection" in original_query.lower()
             or "offline" in original_query.lower()
@@ -36,4 +36,8 @@ class ToolRegistry:
 
         # Always include device info as baseline
         required_tools.add("get_device_info")
+
+        # Always include admin links for support agent follow-up
+        required_tools.add("get_admin_links")
+
         return required_tools

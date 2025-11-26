@@ -1,6 +1,9 @@
 ---
 description: Use this when editing any python files. This describes data modeling and structure.
 alwaysApply: false
+globs:
+  - "src/**/*.py"
+  - "*.py"
 ---
 # Seam Agent Coding Rules
 
