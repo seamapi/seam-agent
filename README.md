@@ -261,35 +261,75 @@ investigator = SimpleInvestigator(debug_mode=True, log_format="json")
 
 ---
 
+## 🎮 Running Examples
+
+### Demo Investigation (Mocked)
+
+Run a full investigation demo with mocked external services—no API keys required:
+
+```bash
+uv run python demo_investigation.py
+```
+
+This demonstrates:
+- Dynamic tool selection based on issue type
+- Multi-round tool calling with limit enforcement
+- Structured analysis and recommendations
+
+### Live Investigation (Requires Credentials)
+
+Run a real investigation against production databases:
+
+```bash
+# Single investigation (loads .env automatically)
+uv run --env-file .env python -m seam_agent.assistant.simple_investigator
+
+# Or run the test suite with live data
+uv run --env-file .env pytest tests/test_investigator_live.py -v -s
+```
+
+### Query Parser Demo
+
+Test the LLM-based query parser in isolation:
+
+```bash
+uv run --env-file .env python -m seam_agent.assistant.query_parser
+```
+
+---
+
 ## 🧪 Development
 
 ### Running Tests
 
 ```bash
-# Run all tests
-pytest
+# Run unit tests (no credentials needed)
+uv run pytest tests/test_dynamic_tool_selector.py tests/test_investigation_config.py -v
+
+# Run all tests with env
+uv run --env-file .env pytest
 
 # Run with verbose output
-pytest -v
-
-# Run specific test file
-pytest tests/test_investigator_live.py
+uv run --env-file .env pytest -v
 
 # Run live integration tests (requires credentials)
-pytest tests/test_investigator_live.py -v -s
+uv run --env-file .env pytest tests/test_investigator_live.py -v -s
 ```
 
 ### Code Quality
 
 ```bash
 # Format code
-ruff format src tests
+uv run ruff format src tests
 
 # Lint
-ruff check src tests
+uv run ruff check src tests
+
+# Fix lint issues automatically
+uv run ruff check src tests --fix
 
 # Type checking
-pyright src tests
+uv run pyright src tests
 ```
 
 ---
